@@ -8,11 +8,11 @@ export default {
 
     const messages = await interaction.channel.messages.fetch({ limit: 100 });
 
-    messages.each((message) => {
+    messages.each(async (message) => {
       if (!message.author.bot) return;
-      if (message.createdTimestamp > Date.now() - 1000 * 60 * 30) return;
+      if (message.createdTimestamp > Date.now() - 1000 * 60 * 10) return;
 
-      message.delete();
+      await message.delete();
     });
   },
 };
