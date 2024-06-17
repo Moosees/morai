@@ -21,7 +21,7 @@ export default {
   async execute(interaction) {
     if (
       !interaction.member.roles.cache.some(
-        (role) => role.id === "1251296816260055080",
+        (role) => role.id === "1059578453688582274",
       )
     ) {
       return await interaction.reply({

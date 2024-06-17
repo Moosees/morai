@@ -3,7 +3,7 @@ import { Events } from "discord.js";
 export default {
   name: Events.MessageCreate,
   async execute(interaction) {
-    const cleaningList = ["1162045473851441165"];
+    const cleaningList = ["1252373187765866647", "1251850048891912224"];
     if (!cleaningList.includes(interaction.channelId)) return;
 
     const messages = await interaction.channel.messages.fetch({ limit: 100 });
