@@ -30,9 +30,10 @@ export default {
       });
     }
 
-    const combat =
-      interaction.options.getInteger("combat") ?? getDefaultMinutes(0);
-    const life = interaction.options.getInteger("life") ?? getDefaultMinutes(2);
+    const combatOption = interaction.options.getInteger("combat");
+    const lifeOption = interaction.options.getInteger("life");
+
+    const { combat, life } = parseOptions(combatOption, lifeOption);
 
     const buffer =
       interaction.member.nickname ||
@@ -49,8 +50,28 @@ export default {
   },
 };
 
+const parseOptions = (combat, life) => {
+  const combatIsNumber = typeof combat === "number";
+  const lifeIsNumber = typeof life === "number";
+
+  if (combatIsNumber && lifeIsNumber) return { combat, life };
+
+  if (combatIsNumber && !lifeIsNumber) {
+    return { combat, life: combat + 2 > 59 ? combat + 2 - 60 : combat + 2 };
+  }
+
+  if (!combatIsNumber && lifeIsNumber) {
+    return { life, combat: life + 2 > 60 ? life + 2 - 60 : life + 2 };
+  }
+
+  return {
+    combat: getDefaultMinutes(5),
+    life: getDefaultMinutes(7),
+  };
+};
+
 const getDefaultMinutes = (offset) => {
-  const minutes = new Date().getMinutes() + 5 + offset;
+  const minutes = new Date().getMinutes() + offset;
 
   if (minutes > 59) return minutes - 60;
 
