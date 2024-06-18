@@ -40,7 +40,7 @@ export default {
       interaction.user.globalName ||
       interaction.user.username;
 
-    const message = `### Guild Buffs incoming from ${buffer}! <@&1251296816260055080>\n${createTimeMsg(combat, life)}`;
+    const message = `### Guild Buffs incoming from ${buffer}! <@&1251849511081607199>\n${createTimeMsg(combat, life)}`;
 
     await interaction.guild.channels.cache
       .get("1251850048891912224")
