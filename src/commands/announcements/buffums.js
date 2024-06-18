@@ -43,7 +43,7 @@ export default {
     const message = `### Guild Buffs incoming from ${buffer}! <@&1251296816260055080>\n${createTimeMsg(combat, life)}`;
 
     await interaction.guild.channels.cache
-      .get("1162045473851441165")
+      .get("1251850048891912224")
       .send(message);
 
     await interaction.reply({ content: "Buffums posted", ephemeral: true });
