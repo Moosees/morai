@@ -3,18 +3,24 @@ import { SlashCommandBuilder } from "discord.js";
 export default {
   data: new SlashCommandBuilder()
     .setName("buffums")
-    .setDescription("Reminds people that buffs are coming")
+    .setDescription(
+      "Reminds people that buffs are coming, defaults to combat in 5 min and life in 7 min",
+    )
     .addIntegerOption((option) =>
       option
         .setName("combat")
-        .setDescription("Minutes combat buffs will be popped")
+        .setDescription(
+          "Override minute combat buffs will be popped (0-59) -> pop combat at xx.[this number]",
+        )
         .setMinValue(0)
         .setMaxValue(59),
     )
     .addIntegerOption((option) =>
       option
         .setName("life")
-        .setDescription("Minutes life buffs will be popped")
+        .setDescription(
+          "Override minute life buffs will be popped (0-59) -> pop life at xx.[this number]",
+        )
         .setMinValue(0)
         .setMaxValue(59),
     ),
