@@ -23,6 +23,18 @@ export default {
         )
         .setMinValue(0)
         .setMaxValue(59),
+    )
+    .addStringOption((option) =>
+      option
+        .setName("buffs")
+        .setDescription(
+          'What buffs to announce (combat, life or both), defaults to "both"',
+        )
+        .addChoices(
+          { name: "both", value: "both" },
+          { name: "combat", value: "combat" },
+          { name: "life", value: "life" },
+        ),
     ),
   async execute(interaction) {
     if (
@@ -38,6 +50,7 @@ export default {
 
     const combatOption = interaction.options.getInteger("combat");
     const lifeOption = interaction.options.getInteger("life");
+    const buffsOptions = interaction.options.getString("buffs");
 
     const { combat, life } = parseOptions(combatOption, lifeOption);
 
@@ -46,10 +59,11 @@ export default {
       interaction.user.globalName ||
       interaction.user.username;
 
-    const message = `### Guild Buffs incoming from ${buffer}! <@&1251849511081607199>\n${createTimeMsg(combat, life)}`;
+    const message = `### Guild Buffs incoming from ${buffer}! <@&1251849511081607199>\n${createTimeMsg(combat, life, buffsOptions)}`;
 
     await interaction.guild.channels.cache
-      .get("1251850048891912224")
+      // .get("1162045473851441165") // test
+      .get("1251850048891912224") // cabbums
       .send(message);
 
     await interaction.reply({ content: "Buffums posted", ephemeral: true });
@@ -84,9 +98,12 @@ const getDefaultMinutes = (offset) => {
   return minutes;
 };
 
-const createTimeMsg = (combat, life) => {
+const createTimeMsg = (combat, life, buffs) => {
   const combatTime = getFutureUnixTimestamp(combat);
   const lifeTime = getFutureUnixTimestamp(life);
+
+  if (buffs === "combat") return `Combat will be popped in <t:${combatTime}:R>`;
+  if (buffs === "life") return `Life will be popped in <t:${lifeTime}:R>`;
 
   if (combatTime < lifeTime) {
     return `Combat will be popped <t:${combatTime}:R> and life <t:${lifeTime}:R>`;
