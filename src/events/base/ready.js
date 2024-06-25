@@ -1,4 +1,4 @@
-import { Events } from "discord.js";
+import { Events } from 'discord.js';
 
 // When the client is ready, run this code (only once).
 export default {

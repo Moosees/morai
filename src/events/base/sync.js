@@ -1,5 +1,5 @@
-import { Events } from "discord.js";
-import { syncModels } from "../../models/index.js";
+import { Events } from 'discord.js';
+import { syncModels } from '../../models/index.js';
 
 // Sync database models
 export default {

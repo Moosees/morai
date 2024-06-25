@@ -17,7 +17,7 @@ export default [
       "@stylistic/js/comma-style": "error",
       curly: ["error", "multi-line", "consistent"],
       "@stylistic/js/dot-location": ["error", "property"],
-      "@stylistic/js/indent": ["error", "tab"],
+      "@stylistic/js/indent": ["error", 2],
       "@stylistic/js/keyword-spacing": "error",
       "max-nested-callbacks": ["error", { max: 4 }],
       "@stylistic/js/max-statements-per-line": ["error", { max: 2 }],

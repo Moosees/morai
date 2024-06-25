@@ -1,32 +1,33 @@
-import "dotenv/config.js";
-import { readdirSync } from "fs";
-import { REST, Routes } from "discord.js";
+import 'dotenv/config.js';
+import { readdirSync } from 'fs';
+import { REST, Routes } from 'discord.js';
 
 const commands = [];
 const srcPath = import.meta.url;
 
 // Grab all the command folders from the commands directory
-const commandFolders = readdirSync(new URL("./commands", srcPath));
+const commandFolders = readdirSync(new URL('./commands', srcPath));
 console.log({ commandFolders });
 
 for (const folder of commandFolders) {
-  const folderPath = "./commands/" + folder;
+  const folderPath = './commands/' + folder;
   console.log({ folderPath });
 
   // Grab all the command files from the commands directory
   const commandFiles = readdirSync(new URL(folderPath, srcPath)).filter(
-    (file) => file.endsWith(".js"),
+    (file) => file.endsWith('.js'),
   );
 
   // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
   for (const file of commandFiles) {
-    const filePath = folderPath + "/" + file;
+    const filePath = folderPath + '/' + file;
     console.log({ file, filePath });
 
     const { default: command } = await import(filePath);
-    if ("data" in command && "execute" in command) {
+    if ('data' in command && 'execute' in command) {
       commands.push(command.data.toJSON());
-    } else {
+    }
+    else {
       console.log(
         `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
       );
@@ -55,7 +56,8 @@ const rest = new REST().setToken(process.env.TOKEN);
     console.log(
       `Successfully reloaded ${data.length} application (/) commands.`,
     );
-  } catch (error) {
+  }
+  catch (error) {
     // And of course, make sure you catch and log any errors!
     console.error(error);
   }

@@ -1,3 +1,3 @@
 export const syncModels = async () => {
-  console.log("Syncing models");
+  console.log('Syncing models');
 };
